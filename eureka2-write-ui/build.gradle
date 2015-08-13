@@ -1,0 +1,29 @@
+apply plugin: 'com.moowork.node'
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'build/public'
+        }
+    }
+}
+
+node {
+    // Version of node to use.
+    version = '0.12.7'
+
+    // Enabled the automatic download. False is the default (for now).
+    download = true
+}
+
+task copyIndex(type: Copy) {
+    from 'app/index.html'
+    into 'build/public/'
+}
+
+jar.dependsOn copyIndex
+
+task buildWebApp {}
+buildWebApp.dependsOn npm_install
+buildWebApp.dependsOn npm_run_build
+buildWebApp.dependsOn copyIndex

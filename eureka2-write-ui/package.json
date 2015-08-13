@@ -1,0 +1,56 @@
+{
+  "name": "eureka2-write-ui",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "BABEL_JEST_STAGE=0 jest --config=.jest",
+    "dev-server": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --port 2992 --inline",
+    "hot-dev-server": "webpack-dev-server --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992 --inline",
+    "build": "webpack --config webpack-production.config.js --progress --profile --colors",
+    "start-dev": "babel-node tools/server-development"
+  },
+  "keywords": [
+    "Eureka"
+  ],
+  "author": "Netflix",
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "fixed-data-table": "^0.4.2",
+    "jquery": "^2.1.1",
+    "react": "^0.13.1",
+    "react-router": "^0.13.2",
+    "react-bootstrap": "^0.24",
+    "react-router-bootstrap": "^0.18",
+    "superagent": "^1.1.0",
+    "webpack": "^1.8.5"
+  },
+  "devDependencies": {
+    "babel": "^5.0.12",
+    "babel-eslint": "^3.0.1",
+    "babel-loader": "^5.0.0",
+    "babel-jest": "^5.3.0",
+    "body-parser": "^1.9.3",
+    "css-loader": "^0.12.0",
+    "eslint": "^0.20.0",
+    "eslint-plugin-react": "^2.2.0",
+    "express": "^4.7.2",
+    "extract-text-webpack-plugin": "^0.7.0",
+    "file-loader": "^0.8.1",
+    "html-loader": "^0.3.0",
+    "html-webpack-plugin": "^1.1.0",
+    "jsonfile": "^2.2.1",
+    "jest-cli": "",
+    "less": "^2.1.2",
+    "less-loader": "^2.0.0",
+    "markdown-loader": "^0.1.2",
+    "null-loader": "^0.1.0",
+    "react-hot-loader": "^1.0.0",
+    "react-proxy-loader": "^0.3.1",
+    "react-tools": "^0.13.3",
+    "stats-webpack-plugin": "0.0.1",
+    "style-loader": "^0.12.0",
+    "url-loader": "^0.5.5",
+    "webpack-dev-server": "^1.4.7"
+  }
+}

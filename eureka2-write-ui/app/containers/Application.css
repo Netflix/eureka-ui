@@ -1,0 +1,24 @@
+body {
+	background: #eee;
+}
+
+.local[this] {
+	opacity: 1;
+}
+
+.local[this].local[loading] {
+	opacity: 0.2;
+	transition: opacity 600ms;
+}
+
+.local[this] .local[loadingElement] {
+	display: none;
+}
+
+.local[this].local[loading] .local[loadingElement] {
+	display: inherit;
+}
+
+.local[loadingElement] {
+	float: right;
+}
