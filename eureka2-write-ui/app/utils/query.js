@@ -9,7 +9,7 @@ export function queryParser(queryString) {
   for (let part of parts) {
     var keyValue = part.split(/\s*=\s*/);
     var key = keyValue[0];
-    if (key && ["id", "app"]) {
+    if (key && ["id", "app", "source", "cardinality"]) {
       if (keyValue.length == 1) {
         return {
           error: `Key ${key} has no value assigned`

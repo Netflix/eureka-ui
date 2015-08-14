@@ -1,3 +1,5 @@
+import request from "superagent";
+
 import {createEntryHolder} from "../app-data/api/diagnostic/registry/entryholders/entryholder";
 import {createEntryHolders} from "../app-data/api/diagnostic/registry/entryholders";
 
@@ -24,20 +26,34 @@ export function server(options) {
   // Test data
 
   // Entry holders
-  app.get("/api/diagnostic/registry/entryholders", function (req, resp) {
-    var data = createEntryHolders(req.query);
-    resp.send(data);
-  });
-  app.get("/api/diagnostic/registry/entryholders/*", function (req, resp) {
-    var segments = req.path.match(/.*entryholders[/]([^_]*)_([^?]*)/);
-    var data = createEntryHolder(segments[2], segments[1]);
-    resp.send(data);
-  });
+  if (options.forwardTo) {
+    app.get("/api/*", function (req, resp) {
+      var redirectAddress = options.forwardTo + req.url;
+      request.get(redirectAddress, function(err, fresp) {
+        if(err) {
+          console.log("Request forwarding failed: " + err);
+          resp.status(500)
+        } else {
+          resp.send(fresp.text);
+        }
+      });
+    });
+  } else {
+    app.get("/api/diagnostic/registry/entryholders", function (req, resp) {
+      var data = createEntryHolders(req.query);
+      resp.send(data);
+    });
+    app.get("/api/diagnostic/registry/entryholders/*", function (req, resp) {
+      var segments = req.path.match(/.*entryholders[/]([^_]*)_([^?]*)/);
+      var data = createEntryHolder(segments[2], segments[1]);
+      resp.send(data);
+    });
 
-  app.get("/api/*", function (req, resp) {
-    var path = req.path.replace("/api", "app-data/api") + ".json";
-    resp.download(path)
-  });
+    app.get("/api/*", function (req, resp) {
+      var path = req.path.replace("/api", "app-data/api") + ".json";
+      resp.download(path)
+    });
+  }
 
   // application
   var fs = require("fs");
@@ -50,6 +66,7 @@ export function server(options) {
 
   app.get("/*", function (req, res) {
     res.contentType = "text/html; charset=utf8";
+    res.header('Access-Control-Allow-Origin', '*');
     res.end(html);
   });
 

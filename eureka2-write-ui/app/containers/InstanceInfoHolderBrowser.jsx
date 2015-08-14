@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Panel, Row, Col } from "react-bootstrap"
+import { Col, Input, OverlayTrigger, Panel, Popover, Row, Tooltip } from "react-bootstrap"
 import $ from "jquery"
 
 import {fetchEntryHolders, fetchEntryHolder} from "../utils/restAPI";
@@ -60,6 +60,17 @@ export default class InstanceInfoHolderBrowser extends React.Component {
     }
   }
 
+  searchTooltip() {
+    return <Popover title="Query options" bsStyle="info" bsSize="large">
+      <ul>
+        <li>id - query by instance id</li>
+        <li>app - query by application name</li>
+        <li>source - query by source (origin|name)</li>
+        <li>cardinality - find all holders with the given number of copies</li>
+      </ul>
+    </Popover>;
+  }
+
   render() {
     return <Row className='show-grid'>
       <Col md={3}>
@@ -68,14 +79,16 @@ export default class InstanceInfoHolderBrowser extends React.Component {
         </Panel>
       </Col>
       <Col md={9}>
-        <Input type='text'
-               addonBefore='Search'
-               placeholder='Enter search criteria'
-               hasFeedback
-               bsStyle={this.validationState()}
-               onChange={(e) => this.validateQuery(e)}
-               onKeyPress={(e) => this.submitQuery(e)}
-          />
+        <OverlayTrigger placement='bottom' overlay={this.searchTooltip()}>
+          <Input type='text'
+                 addonBefore='Search'
+                 placeholder='Enter search criteria'
+                 hasFeedback
+                 bsStyle={this.validationState()}
+                 onChange={(e) => this.validateQuery(e)}
+                 onKeyPress={(e) => this.submitQuery(e)}
+            />
+          </OverlayTrigger>
         <InstanceInfoHolderList holders={this.state.holders} selectRow={(rowIdx) => this.selectRow(rowIdx)}/>
         {this.renderInstanceDetails()}
       </Col>
