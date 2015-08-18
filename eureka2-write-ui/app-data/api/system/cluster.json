@@ -1,0 +1,115 @@
+{
+  "writeCluster": {
+    "clusterId": "writeCluster",
+    "servers": [
+      {
+        "id": "write#0_i-0001",
+        "appGroup": "eureka-write",
+        "app": "eureka-write",
+        "asg": "eureka-write-v001",
+        "vipAddress": "eureka-write",
+        "ports": [
+          {
+            "name": "register",
+            "port": "12102",
+            "secure": false
+          },
+          {
+            "name": "interest",
+            "port": "12103",
+            "secure": false
+          },
+          {
+            "name": "replicate",
+            "port": "12104",
+            "secure": false
+          }
+        ],
+        "status": "UP",
+        "homePageUrl": "http://this.is.somehost.with.very.long.dns.name:7001/home.html",
+        "statusPageUrl": "http://this.is.somehost.with.very.long.dns.name:7001/status.html",
+        "healthCheckUrls": [
+          "http://this.is.somehost.with.very.long.dns.name:7001/health"
+        ],
+        "metaData": {
+          "eureka2.nodeType": "write",
+          "eureka2.writeClusterId": "eureka-write"
+        },
+        "dataCenterInfo": {
+          "name": "aws",
+          "region": "us-east-1",
+          "zone": "us-east-1c",
+          "placementGroup": "placementGroup",
+          "amiId": "ami123",
+          "instanceId": "i-0001",
+          "instanceType": "m3.xlarge",
+          "eth0mac": "00-11-22-33-44",
+          "accountId": "account123",
+          "publicAddress": {
+            "protocolType": "IPv4",
+            "label": "public",
+            "ipAddress": "10.10.10.10",
+            "hostName": "host1.test"
+          },
+          "privateAddress": {
+            "protocolType": "IPv4",
+            "label": "private",
+            "ipAddress": "1.1.1.1",
+            "hostName": "host1.test.private"
+          }
+        }
+      }
+    ]
+  },
+  "readCluster": {
+    "clusterId": "readCluster",
+    "servers": [
+      {
+        "id": "read#0_i-0010",
+        "appGroup": "eureka-read",
+        "app": "eureka-read",
+        "asg": "eureka-read-v001",
+        "vipAddress": "eureka-read",
+        "ports": [
+          {
+            "port": "12203",
+            "secure": false
+          }
+        ],
+        "status": "UP",
+        "homePageUrl": "http://somehost:7001/home.html",
+        "statusPageUrl": "http://somehost:7001/status.html",
+        "healthCheckUrls": [
+          "http://somehost:7001/health"
+        ],
+        "metaData": {
+          "eureka2.nodeType": "read",
+          "eureka2.writeClusterId": "eureka-write"
+        },
+        "dataCenterInfo": {
+          "name": "aws",
+          "region": "us-east-1",
+          "zone": "us-east-1c",
+          "placementGroup": "placementGroup",
+          "amiId": "ami123",
+          "instanceId": "i-0001",
+          "instanceType": "m3.xlarge",
+          "eth0mac": "00-11-22-33-44",
+          "accountId": "account123",
+          "publicAddress": {
+            "protocolType": "IPv4",
+            "label": "public",
+            "ipAddress": "10.10.10.10",
+            "hostName": "host1.test"
+          },
+          "privateAddress": {
+            "protocolType": "IPv4",
+            "label": "private",
+            "ipAddress": "1.1.1.1",
+            "hostName": "host1.test.private"
+          }
+        }
+      }
+    ]
+  }
+}

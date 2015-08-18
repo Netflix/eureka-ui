@@ -9,12 +9,15 @@ export default class InstanceInfoHolderView extends React.Component {
 
   renderInstanceInfoAttribute(key) {
     var value = this.props.object[key];
-    if(typeof value == "object" || typeof value == "array") {
+    if (typeof value == "object" || typeof value == "array") {
       value = JSON.stringify(value, null, ' ');
+    }
+    var style = {
+      "word-break": "break-word"
     }
     return <tr>
       <td>{key}</td>
-      <td>{value}</td>
+      <td style={style}>{value}</td>
     </tr>;
   }
 

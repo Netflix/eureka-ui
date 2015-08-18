@@ -1,6 +1,24 @@
 import $ from "jquery"
 import {queryUriFormatter} from "../utils/query"
 
+export function fetchClusterTopology() {
+  var url = "/api/system/cluster";
+  return new Promise(function (resolve, reject) {
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      cache: false,
+      success: function (data) {
+        resolve(data);
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+        reject(status);
+      }.bind(this)
+    });
+  });
+}
+
 export function fetchEntryHolders(queryOptions) {
   var url = "/api/diagnostic/registry/entryholders";
   if(queryOptions) {
@@ -17,6 +35,7 @@ export function fetchEntryHolders(queryOptions) {
             var row = {};
             row['id'] = item['id'];
             row['app'] = item['app'];
+            row['cardinality'] = item['sources'].length;
             row['sources'] = item['sources'].map((src) => `${src.origin}/${src.name}/${src.id}`).join(', ')
             return row;
           }

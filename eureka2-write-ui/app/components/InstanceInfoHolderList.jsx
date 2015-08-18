@@ -3,6 +3,7 @@ import FixedDataTable from "fixed-data-table";
 import $ from "jquery";
 
 import {fetchEntryHolder} from "../utils/restAPI";
+import {SortTypes} from "../utils/sorting";
 
 export default class InstanceInfoHolderList extends React.Component {
 
@@ -31,9 +32,19 @@ export default class InstanceInfoHolderList extends React.Component {
     });
   }
 
+  renderHeader(label, dataKey) {
+    return <a onClick={() => this.props.sortBy(dataKey)}>{label}</a>;
+  }
+
   render() {
     var Table = FixedDataTable.Table;
     var Column = FixedDataTable.Column;
+
+    var sortDirArrow = '';
+
+    if (this.props.sortDir !== null) {
+      sortDirArrow = this.props.sortDir === SortTypes.DESC ? ' ↓' : ' ↑';
+    }
 
     return <div id="InstanceInfoHolderListDiv">
       <Table
@@ -45,16 +56,18 @@ export default class InstanceInfoHolderList extends React.Component {
         headerHeight={50}
         onRowClick={(e,idx) => this.props.selectRow(idx)}>
         <Column
+          headerRenderer={(label, dataKey) => this.renderHeader(label, dataKey)}
           dataKey='id'
           fixed={true}
-          label='Instance id'
+          label={'Instance id' + (this.props.sortKey === 'id' ? sortDirArrow : '')}
           width={100}
           flexGrow={1}
           />
         <Column
+          headerRenderer={(label, dataKey) => this.renderHeader(label, dataKey)}
           dataKey='app'
           fixed={true}
-          label='Application'
+          label={'Application' + (this.props.sortKey === 'app' ? sortDirArrow : '')}
           width={100}
           flexGrow={1}
           />

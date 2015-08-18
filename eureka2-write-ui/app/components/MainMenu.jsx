@@ -7,7 +7,8 @@ export default class MainMenu extends React.Component {
 	render() {
 		return <Navbar brand='Eureka2 Server Admin UI'>
 			<Nav>
-				<NavItemLink eventKey={1} to="instanceInfoHolderBrowser">Holder list</NavItemLink>
+				<NavItemLink eventKey={1} to="clusterTopology">Cluster Topology</NavItemLink>
+				<NavItemLink eventKey={2} to="instanceInfoHolderBrowser">Holder list</NavItemLink>
 			</Nav>
 		</Navbar>;
 	}

@@ -4,6 +4,8 @@ import $ from "jquery"
 
 import {fetchEntryHolders, fetchEntryHolder} from "../utils/restAPI";
 import {queryParser} from "../utils/query"
+import {SortTypes} from "../utils/sorting";
+
 import InstanceInfoHolderList from "components/InstanceInfoHolderList";
 import InstanceInfoHolderView from "components/InstanceInfoHolderView";
 
@@ -51,6 +53,32 @@ export default class InstanceInfoHolderBrowser extends React.Component {
     fetchEntryHolder(instanceId).then((data) => this.setState({instanceCopies: data}));
   }
 
+  sortBy(sortKey) {
+    var sortDir = this.state.sortDir ? (this.state.sortDir == SortTypes.DESC ? SortTypes.ASC : SortTypes.DESC) : SortTypes.ASC;
+    this.setState({
+        sortDir: sortDir,
+        sortKey: sortKey
+      }
+    );
+  }
+
+  renderDataSummary() {
+    if (this.state.holders) {
+      var total = this.state.holders.length;
+      var cardinalities = [];
+      this.state.holders.forEach((holder) => {
+        while (cardinalities.length <= holder.cardinality) {
+          cardinalities.push(0);
+        }
+        cardinalities[holder.cardinality]++;
+      });
+      var groups = cardinalities.map((c, i) => c == 0 ? "" : i + '=' + c).filter((s) => s.length > 0).join(', ');
+      return <Panel>
+        Total instances: {total}, copies: [{groups}]
+      </Panel>
+    }
+  }
+
   renderInstanceDetails() {
     if (this.state.instanceCopies) {
       return <InstanceInfoHolderView
@@ -72,6 +100,8 @@ export default class InstanceInfoHolderBrowser extends React.Component {
   }
 
   render() {
+    var sortedHolders = this.state.holders;
+
     return <Row className='show-grid'>
       <Col md={3}>
         <Panel header="View options">
@@ -88,8 +118,14 @@ export default class InstanceInfoHolderBrowser extends React.Component {
                  onChange={(e) => this.validateQuery(e)}
                  onKeyPress={(e) => this.submitQuery(e)}
             />
-          </OverlayTrigger>
-        <InstanceInfoHolderList holders={this.state.holders} selectRow={(rowIdx) => this.selectRow(rowIdx)}/>
+        </OverlayTrigger>
+        {this.renderDataSummary()}
+        <InstanceInfoHolderList holders={sortedHolders}
+                                selectRow={(rowIdx) => this.selectRow(rowIdx)}
+                                sortDir={this.state.sortDir}
+                                sortBy={(key) => this.sortBy(key)}
+                                sortKey={this.state.sortKey}
+          />
         {this.renderInstanceDetails()}
       </Col>
     </Row>;
