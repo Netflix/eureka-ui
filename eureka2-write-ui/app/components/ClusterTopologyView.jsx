@@ -2,8 +2,6 @@ import React from "react";
 import $ from "jquery";
 import d3 from "d3"
 
-import {fetchEntryHolder} from "../utils/restAPI";
-
 class RingRenderer {
 
   constructor(rootEl, cluster, type, radius, onClick) {
@@ -39,6 +37,7 @@ class RingRenderer {
       })
       .attr("dy", ".35em")
       .style("text-anchor", "middle")
+      .style("font-size", "10px")
       .text(function (d) {
         return textFun(d);
       });
@@ -56,7 +55,9 @@ class RingRenderer {
       });
 
     var data = pie(this.cluster.servers);
-    var arcClassName = this.cluster.clusterId;
+    var arcClassName = `arc-${this.type}`;
+
+    $("." + arcClassName).remove();
     var g = this.rootEl.selectAll("." + arcClassName)
       .data(data, function (d) {
         return d.data.id + '_' + d.data.status;

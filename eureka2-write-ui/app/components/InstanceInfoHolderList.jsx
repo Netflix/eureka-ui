@@ -2,7 +2,6 @@ import React from "react";
 import FixedDataTable from "fixed-data-table";
 import $ from "jquery";
 
-import {fetchEntryHolder} from "../utils/restAPI";
 import {SortTypes} from "../utils/sorting";
 
 export default class InstanceInfoHolderList extends React.Component {

@@ -12,12 +12,26 @@ export default class ClusterTopology extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      clusterDiameter: 600,
       clusterTopology: {}
     }
   }
 
   componentDidMount() {
     this.loadClusterTopology();
+
+    this.updateWindowSize();
+    var win = window;
+    if (win.addEventListener) {
+      win.addEventListener('resize', () => this.updateWindowSize(), false);
+    }
+  }
+
+  updateWindowSize() {
+    var root = $("#clusterTopologyView");
+    this.setState({
+      clusterDiameter: Math.min(root.width(), window.innerHeight)
+    });
   }
 
   loadClusterTopology() {
@@ -33,8 +47,8 @@ export default class ClusterTopology extends React.Component {
   renderCluster() {
     if (this.state.clusterTopology) {
       return <ClusterTopologyView
-        width={800}
-        height={600}
+        width={this.state.clusterDiameter}
+        height={this.state.clusterDiameter}
         clusterTopology={this.state.clusterTopology}
         onClick={(e) => this.selectClusterNode(e)}
         />;
@@ -62,7 +76,7 @@ export default class ClusterTopology extends React.Component {
           TODO
         </Panel>
       </Col>
-      <Col md={6}>
+      <Col id="clusterTopologyView" md={6}>
         {this.renderCluster()}
       </Col>
       <Col md={4}>

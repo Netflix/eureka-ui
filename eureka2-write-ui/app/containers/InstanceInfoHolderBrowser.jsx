@@ -100,7 +100,24 @@ export default class InstanceInfoHolderBrowser extends React.Component {
   }
 
   render() {
-    var sortedHolders = this.state.holders;
+    var sortedHolders = this.state.holders.slice(0);
+    if (sortedHolders && this.state.sortKey) {
+      var sortFun = null;
+      var compare = (s1, s2) => (s1 < s2) ? -1 : ((s1 > s2) ? 1 : 0);
+      var sortDir = this.state.sortDir;
+      var sign = (sortDir && sortDir == SortTypes.DESC) ? -1 : 1;
+      switch (this.state.sortKey) {
+        case 'id':
+          sortFun = (first, second) => sign * compare(first.id, second.id);
+          break;
+        case 'app':
+          sortFun = (first, second) => sign * compare(first.app, second.app);
+          break;
+      }
+      if (sortFun) {
+        sortedHolders.sort(sortFun);
+      }
+    }
 
     return <Row className='show-grid'>
       <Col md={3}>

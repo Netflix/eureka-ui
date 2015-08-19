@@ -1,0 +1,53 @@
+[
+  {
+    "name": "WebFrontend",
+    "asgs": [
+      {
+        "name": "WebFrontend-v001",
+        "size": 15
+      },
+      {
+        "name": "WebFrontend-v002",
+        "size": 10
+      }
+    ],
+    "instances": {
+      "UP": 20,
+      "DOWN": 5
+    }
+  },
+  {
+    "name": "Backend",
+    "asgs": [
+      {
+        "name": "Backend-v001",
+        "size": 10
+      },
+      {
+        "name": "Backend-v002",
+        "size": 5
+      }
+    ],
+    "instances": {
+      "UP": 10,
+      "DOWN": 5
+    }
+  },
+  {
+    "name": "DB",
+    "asgs": [
+      {
+        "name": "DB-v001",
+        "size": 5
+      },
+      {
+        "name": "DB-v002",
+        "size": 3
+      }
+    ],
+    "instances": {
+      "UP": 5,
+      "DOWN": 3
+    }
+  }
+]
