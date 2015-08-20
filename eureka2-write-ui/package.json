@@ -9,7 +9,8 @@
     "hot-dev-server": "webpack-dev-server --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992 --inline",
     "build": "webpack --config webpack-production.config.js --progress --profile --colors",
     "start-dev": "babel-node tools/server-development",
-    "start-proxy": "babel-node tools/server-proxy"
+    "start-proxy": "babel-node tools/server-proxy",
+    "start-prod": "babel-node tools/server-prod"
   },
   "keywords": [
     "Eureka"

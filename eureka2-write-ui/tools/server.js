@@ -10,15 +10,19 @@ export function server(options) {
   var jsonfile = require('jsonfile');
   var app = express();
 
+  var devMode = options['devMode'];
+
   // load bundle information from stats
   var stats = require("../build/stats.json");
-  var publicPath = stats.publicPath;
+  var publicPath = devMode ? stats.publicPath : "/ui/";
 
   // serve the static assets
-  app.use("/_assets", express.static(path.join(__dirname, "..", "build", "public"), {
-    maxAge: "200d" // We can cache them as they include hashes
-  }));
-  app.use("/", express.static(path.join(__dirname, "..", "public"), {}));
+  if(devMode) {
+    app.use("/_assets", express.static(path.join(__dirname, "..", "build", "public"), {
+      maxAge: "200d" // We can cache them as they include hashes
+    }));
+  }
+  app.use("/ui", express.static(path.join(__dirname, "..", "build", "public"), {}));
 
   app.use(bodyParser.json());
 

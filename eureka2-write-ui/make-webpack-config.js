@@ -48,7 +48,7 @@ module.exports = function(options) {
 	var modulesDirectories = ["web_modules", "node_modules"];
 	var extensions = ["", ".web.js", ".js", ".jsx"];
 	var root = path.join(__dirname, "app");
-	var publicPath = options.devServer ? "http://localhost:2992/_assets/" : "/_assets/";
+	var publicPath = options.devServer ? "http://localhost:2992/_assets/" : "/ui/";
 	var output = {
 		path: path.join(__dirname, "build", "public"),
 		publicPath: publicPath,

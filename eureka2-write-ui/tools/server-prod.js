@@ -2,7 +2,7 @@
 import {server} from "./server";
 
 server({
-  devMode: true,
+  devMode: false,
   separateStylesheet: true,
   defaultPort: 8080
 });
