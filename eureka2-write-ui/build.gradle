@@ -21,9 +21,6 @@ task copyIndex(type: Copy) {
     into 'build/public/'
 }
 
-jar.dependsOn copyIndex
-
-task buildWebApp {}
-buildWebApp.dependsOn npm_install
-buildWebApp.dependsOn npm_run_build
-buildWebApp.dependsOn copyIndex
+processResources.dependsOn copyIndex
+processResources.dependsOn npm_install
+processResources.dependsOn npm_run_build
